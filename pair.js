@@ -56,7 +56,7 @@ router.get('/', async (req, res) => {
                let session = await Pair_Code_By_Venocyber_Tech.sendMessage(Pair_Code_By_Venocyber_Tech.user.id, { text: '' + b64data });
 
                let VENOCYBER_MD_TEXT = `
-*_Pair Code Connected by ALPHA-BUG _*
+*_Pair Code Connected by TREX-MD _*
 *_Made With 🤍_*
 ______________________________________
 ╔════◇
