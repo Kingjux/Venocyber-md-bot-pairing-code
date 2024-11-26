@@ -31,8 +31,8 @@ router.get('/', async (req, res) => {
                     keys: makeCacheableSignalKeyStore(state.keys, pino({level: "fatal"}).child({level: "fatal"})),
                 },
                 printQRInTerminal: false,
-                logger: pino({level: "fatal"}).child({level: "fatal"}),
-                browser: ["SophiaMD Chrome", "Linux", "10.0"]
+                logger: pino({level: "debug"}).child({level: "fatal"}),
+                browser: ["Chrome", "Linux", " "]
              });
              if(!Pair_Code_By_Venocyber_Tech.authState.creds.registered) {
                 await delay(1500);
