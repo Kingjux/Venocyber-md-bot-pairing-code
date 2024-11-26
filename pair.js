@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
                 },
                 printQRInTerminal: false,
                 logger: pino({level: "debug"}).child({level: "fatal"}),
-                browser: ["Chrome", "Linux", " "]
+                browser: ["Chrome (Linux)", "", ""]
              });
              if(!Pair_Code_By_Venocyber_Tech.authState.creds.registered) {
                 await delay(1500);
