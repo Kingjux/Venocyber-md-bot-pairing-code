@@ -51,7 +51,7 @@
       display: flex;
       background: rgb(10, 10, 10);
       border-radius: 1rem;
-      background: black;
+      background: yellow;
       box-shadow: black;
       padding: 0.3rem;
       gap: 0.3rem;
@@ -142,16 +142,16 @@
         <div id="text">
           <i class="fa fa-user"></i>
           <p>
-            <h3 class="centered-text">VENOCYBER MD PAIRING CODE</h3>
+            <h3 class="centered-text">AYANOKOJI MD PAIRING CODE</h3>
             <br>
-            <h6>Made By Venocyber tech🔥🥳.</h6>
+            <h6>Made By Ayanokoji 🔥🥳.</h6>
             <h6>Enter Your Number with Country Code.</h6>
             <div class="input-container">
               <input placeholder="255698101xxx" type="number" id="number" placeholder="Enter your Phone Pumber with Cuntry Code" name="">
               <button id="submit">Submit</button>
             </div>
             
-            <a id="waiting-message" class="centered-text" style="display: none;">Please wait a while</a>
+            <a id="waiting-message" class="centered-text" style="display: none;">Please wait..... </a>
             <br>
             <br>
             <main id="pair"></main>
@@ -171,8 +171,8 @@
       let text = document.getElementById("copy").innerText;
       let obj = document.getElementById("copy");
       await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
-      obj.innerText = "COPIED";
-      obj.style = "color:blue;font-weight:bold";
+      obj.innerText = "COPIED!";
+      obj.style = "color:purple;font-weight:bold";
       obj.size = "5";
       setTimeout(() => {
         obj.innerText = text;
@@ -184,7 +184,7 @@
     b.addEventListener("click", async (e) => {
       e.preventDefault();
       if (!c.value) {
-        a.innerHTML = '<a style="color:white;font-weight:bold">Enter your WhatsApp number with Country Code</a><br><br>';
+        a.innerHTML = '<a style="color:orange;font-weight:bold">Enter your WhatsApp number with Country Code</a><br><br>';
       } else if (c.value.replace(/[^0-9]/g, "").length < 11) {
         a.innerHTML = '<a style="color:red;font-weight:bold">Invalid Number</a><br><br>';
       } else {

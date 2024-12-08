@@ -6,11 +6,13 @@ const fs = require('fs');
 let router = express.Router()
 const pino = require("pino");
 const {
-    default: Venocyber_Tech,    useMultiFileAuthState,
+    default: makeWASocket,    useMultiFileAuthState,
     delay,
     makeCacheableSignalKeyStore,
     Browsers
-} = require("maher-zubair-baileys");
+} = require("@whiskeysockets/baileys");
+
+
 
 function removeFile(FilePath){
     if(!fs.existsSync(FilePath)) return false;
@@ -25,25 +27,25 @@ router.get('/', async (req, res) => {
             saveCreds
         } = await useMultiFileAuthState('./temp/'+id)
      try {
-            let Pair_Code_By_Venocyber_Tech = Venocyber_Tech({
+            let sock = makeWASocket({
                 auth: {
                     creds: state.creds,
                     keys: makeCacheableSignalKeyStore(state.keys, pino({level: "fatal"}).child({level: "fatal"})),
                 },
                 printQRInTerminal: false,
-                logger: pino({level: "fatal"}).child({level: "fatal"}),
-                browser: ["Chrome (Linux)", "", ""]
-             });
-             if(!Pair_Code_By_Venocyber_Tech.authState.creds.registered) {
+                logger: pino({level: "debug"}).child({level: "debug"}),
+                browser: Browsers.windows('safari'),
+                         });
+             if(!sock.authState.creds.registered) {
                 await delay(1500);
                         num = num.replace(/[^0-9]/g,'');
-                            const code = await Pair_Code_By_Venocyber_Tech.requestPairingCode(num)
+                            const code = await sock.requestPairingCode(num)
                  if(!res.headersSent){
                  await res.send({code});
                      }
                  }
-            Pair_Code_By_Venocyber_Tech.ev.on('creds.update', saveCreds)
-            Pair_Code_By_Venocyber_Tech.ev.on("connection.update", async (s) => {
+            sock.ev.on('creds.update', saveCreds)
+            sock.ev.on("connection.update", async (s) => {
                 const {
                     connection,
                     lastDisconnect
@@ -53,10 +55,10 @@ router.get('/', async (req, res) => {
                 let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
                 await delay(800);
                let b64data = Buffer.from(data).toString('base64');
-               let session = await Pair_Code_By_Venocyber_Tech.sendMessage(Pair_Code_By_Venocyber_Tech.user.id, { text: '' + b64data });
+               let session = await sock.sendMessage(sock.user.id, { text: '' + b64data });
 
                let VENOCYBER_MD_TEXT = `
-*_Pair Code Connected by Venocyber Tech_*
+*_Pair Code Connected by auanoko tech_*
 *_Made With 🤍_*
 ______________________________________
 ╔════◇
@@ -69,17 +71,17 @@ ______________________________________
 ║❒ *Owner:* _https://wa.me/message/A4QG2JZKBXFTN1_
 ║❒ *Repo:* _https://github.com/Kingjux/venocyber-md_
 ║❒ *WaGroup:* _https://chat.whatsapp.com/HSln3blDuuuKvC8njxyCCN_
-║❒ *WaChannel:* _https://whatsapp.com/channel/0029VaYauR9ISTkHTj4xvi1l_
+_
 ║❒ *Plugins:* _https://github.com/Kingjux/venocyber-md-plugins_
 ╚══════════════════════╝ 
 _____________________________________
 
 _Don't Forget To Give Star To My Repo_`
- await Pair_Code_By_Venocyber_Tech.sendMessage(Pair_Code_By_Venocyber_Tech.user.id,{text:VENOCYBER_MD_TEXT},{quoted:session})
+ await sock.sendMessage(sock.user.id,{text:VENOCYBER_MD_TEXT},{quoted:session})
  
 
         await delay(100);
-        await Pair_Code_By_Venocyber_Tech.ws.close();
+        await sock.ws.close();
         return await removeFile('./temp/'+id);
             } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
                     await delay(10000);
